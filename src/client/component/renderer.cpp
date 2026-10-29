@@ -598,7 +598,8 @@ namespace renderer
 				utils::hook::jump(0x6ADFE4_b, utils::hook::assemble(r_preload_bind_1000_stub), true);
 				utils::hook::jump(0x6AE033_b, utils::hook::assemble(r_preload_bind_4000_stub), true);
 			}
-			dvars::override::register_bool("r_preloadShaders", false, game::DVAR_FLAG_SAVED);
+			// MP preloads fast and safely with shader_preload's wait; SP still has the stock one
+			dvars::override::register_bool("r_preloadShaders", game::environment::is_mp(), game::DVAR_FLAG_SAVED);
 
 #ifdef _DEBUG
 			if (!game::environment::is_mp())
